@@ -172,7 +172,7 @@ export function ServiceAreasStrip({ areas }: { areas: readonly string[] }) {
 export function PropertyCard({
   price, bd, ba, sqft, address, badge, img,
 }: {
-  price: string; bd: number; ba: number; sqft: string; address: string; badge: string; img: string;
+  price: string; bd: number | string; ba: number | string; sqft: string; address: string; badge: string; img: string;
 }) {
   return (
     <article className="group overflow-hidden rounded-2xl border border-border bg-card transition hover:shadow-xl">
@@ -189,9 +189,11 @@ export function PropertyCard({
       </div>
       <div className="p-5">
         <p className="font-serif text-2xl text-primary">{price}</p>
-        <p className="mt-1 text-sm text-foreground/80">
-          <strong>{bd}</strong> bd · <strong>{ba}</strong> ba · <strong>{sqft}</strong> sqft
-        </p>
+        {(bd !== "—" || ba !== "—" || sqft !== "—") && (bd || ba || sqft) ? (
+          <p className="mt-1 text-sm text-foreground/80">
+            <strong>{bd}</strong> bd · <strong>{ba}</strong> ba · <strong>{sqft}</strong> sqft
+          </p>
+        ) : null}
         <p className="mt-2 text-sm text-muted-foreground">{address}</p>
       </div>
     </article>
