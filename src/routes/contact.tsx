@@ -43,6 +43,13 @@ function Field({ label, name, type = "text", required }: { label: string; name: 
   );
 }
 
+const SOCIAL_LABELS: Record<string, string> = {
+  instagram: "Instagram",
+  linkedin: "LinkedIn",
+  youtube: "YouTube",
+  instacard: "Instacard",
+};
+
 function Page() {
   const [sent, setSent] = useState(false);
   return (
@@ -70,9 +77,11 @@ function Page() {
                 <a
                   key={k}
                   href={v}
-                  className="rounded-full border border-border bg-card px-4 py-2 text-sm capitalize text-foreground/80 hover:border-primary hover:text-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground/80 hover:border-primary hover:text-primary"
                 >
-                  {k}
+                  {SOCIAL_LABELS[k] ?? k}
                 </a>
               ))}
             </div>

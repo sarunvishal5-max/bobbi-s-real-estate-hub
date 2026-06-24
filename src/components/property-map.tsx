@@ -24,8 +24,9 @@ export function PropertyMap() {
     if (!ref.current || mapRef.current) return;
     const map = L.map(ref.current, { scrollWheelZoom: false }).setView([40.25, -74.45], 10);
     mapRef.current = map;
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors",
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+      attribution: "© OpenStreetMap · © CARTO",
+      subdomains: "abcd",
       maxZoom: 19,
     }).addTo(map);
 

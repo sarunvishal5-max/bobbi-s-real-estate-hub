@@ -6,7 +6,6 @@ const NAV = [
   { to: "/", label: "Home" },
   { to: "/listings", label: "Listings" },
   { to: "/sold", label: "Sold" },
-  { to: "/sales", label: "Sales" },
   { to: "/map", label: "Map" },
   { to: "/contact", label: "Contact" },
 ] as const;
@@ -102,6 +101,8 @@ export function SiteFooter() {
               <a
                 key={k}
                 href={v}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-full border border-border px-4 py-1.5 text-xs capitalize text-foreground/80 hover:border-primary hover:text-primary"
               >
                 {k}
