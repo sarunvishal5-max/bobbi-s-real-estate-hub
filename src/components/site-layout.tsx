@@ -101,6 +101,8 @@ export function SiteFooter() {
               <a
                 key={k}
                 href={v}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-full border border-border px-4 py-1.5 text-xs capitalize text-foreground/80 hover:border-primary hover:text-primary"
               >
                 {k}
