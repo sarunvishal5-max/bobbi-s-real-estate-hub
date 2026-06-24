@@ -41,19 +41,19 @@ export const SERVICE_AREAS = [
 ];
 
 export const SOLD = [
-  { price: "$781,000", bd: 4, ba: 3, sqft: "2,374", address: "18 Apache Ct, East Brunswick, NJ 08816", when: "Sold 23 days ago", img: "https://photos.zillowstatic.com/fp/9987fe34855d4578c6a5a19a7b6ea39e-p_h.jpg" },
-  { price: "$450,000", bd: 2, ba: 2, sqft: "1,626", address: "17 Kingston Ct, Monroe Township, NJ 08831", when: "Sold 2 months ago", img: "https://photos.zillowstatic.com/fp/13cf2072f0c6def0ddb5fc6f10fe3f36-p_h.jpg" },
-  { price: "$160,000", bd: 2, ba: 1, sqft: "1,120", address: "6 Orchard Drive #73, Whiting, NJ 08759", when: "Sold 2 months ago", img: "https://photos.zillowstatic.com/fp/fd100e4ebf650e314913f25fa024b5d1-p_h.jpg" },
-  { price: "$835,000", bd: 3, ba: 3, sqft: "3,219", address: "46 Mandrake Rd, Monroe Township, NJ 08831", when: "Sold 3 months ago", img: "https://photos.zillowstatic.com/fp/1c3d9f935bd5b04f537d0b4ecababcc8-p_h.jpg" },
-  { price: "$349,900", bd: 3, ba: 3, sqft: "1,262", address: "9 Williamson Ct, Hightstown, NJ 08520", when: "Sold 4 months ago", img: "https://photos.zillowstatic.com/fp/35cb49b92491291a068575aa4db872a9-p_h.jpg" },
+  { price: "$781,000", bd: 4, ba: 3, sqft: "2,374", address: "18 Apache Ct, East Brunswick, NJ 08816", when: "Sold 23 days ago", img: "https://photos.zillowstatic.com/fp/9987fe34855d4578c6a5a19a7b6ea39e-p_h.jpg", lat: 40.4279, lng: -74.4159 },
+  { price: "$450,000", bd: 2, ba: 2, sqft: "1,626", address: "17 Kingston Ct, Monroe Township, NJ 08831", when: "Sold 2 months ago", img: "https://photos.zillowstatic.com/fp/13cf2072f0c6def0ddb5fc6f10fe3f36-p_h.jpg", lat: 40.3134, lng: -74.4290 },
+  { price: "$160,000", bd: 2, ba: 1, sqft: "1,120", address: "6 Orchard Drive #73, Whiting, NJ 08759", when: "Sold 2 months ago", img: "https://photos.zillowstatic.com/fp/fd100e4ebf650e314913f25fa024b5d1-p_h.jpg", lat: 39.9542, lng: -74.3859 },
+  { price: "$835,000", bd: 3, ba: 3, sqft: "3,219", address: "46 Mandrake Rd, Monroe Township, NJ 08831", when: "Sold 3 months ago", img: "https://photos.zillowstatic.com/fp/1c3d9f935bd5b04f537d0b4ecababcc8-p_h.jpg", lat: 40.3120, lng: -74.4350 },
+  { price: "$349,900", bd: 3, ba: 3, sqft: "1,262", address: "9 Williamson Ct, Hightstown, NJ 08520", when: "Sold 4 months ago", img: "https://photos.zillowstatic.com/fp/35cb49b92491291a068575aa4db872a9-p_h.jpg", lat: 40.2693, lng: -74.5237 },
 ];
 
 export const LISTINGS = [
-  { price: "$434,900", bd: 3, ba: 2, sqft: "1,170", address: "5 Monument Ave, Hamilton, NJ 08619", note: "3 days on Zillow", img: "https://photos.zillowstatic.com/fp/c191432e0fe6544ecf3cb61243208fe6-p_h.jpg" },
-  { price: "$839,900", bd: 4, ba: 3, sqft: "2,522", address: "12 McFadden Dr, Monroe Township, NJ 08831", note: "Lovely powder room", img: "https://photos.zillowstatic.com/fp/e9acc34c702bef9a5f4ae1f835a8663a-p_h.jpg" },
-  { price: "$599,900", bd: 3, ba: 3, sqft: "2,620", address: "22 London Dr, Monroe Township, NJ 08831", note: "Two additional closets", img: "https://photos.zillowstatic.com/fp/1ed36185a099668b074d909579ec3c5c-p_h.jpg" },
-  { price: "$369,900", bd: 2, ba: 2, sqft: "1,184", address: "21 John Hancock Dr #A, Monroe Township, NJ 08831", note: "Recessed lighting", img: "https://photos.zillowstatic.com/fp/107815e951de82fa33d1cf88aec5d7d5-p_h.jpg" },
-  { price: "$579,900", bd: 3, ba: 2, sqft: "1,512", address: "55 Wyoming Ave, Spotswood, NJ 08884", note: "Central a/c", img: "https://photos.zillowstatic.com/fp/0eb7861100c7fe6eb5f9265e5a47ecbd-p_h.jpg" },
+  { price: "$434,900", bd: 3, ba: 2, sqft: "1,170", address: "5 Monument Ave, Hamilton, NJ 08619", note: "3 days on Zillow", img: "https://photos.zillowstatic.com/fp/c191432e0fe6544ecf3cb61243208fe6-p_h.jpg", lat: 40.2298, lng: -74.6960 },
+  { price: "$839,900", bd: 4, ba: 3, sqft: "2,522", address: "12 McFadden Dr, Monroe Township, NJ 08831", note: "Lovely powder room", img: "https://photos.zillowstatic.com/fp/e9acc34c702bef9a5f4ae1f835a8663a-p_h.jpg", lat: 40.3155, lng: -74.4300 },
+  { price: "$599,900", bd: 3, ba: 3, sqft: "2,620", address: "22 London Dr, Monroe Township, NJ 08831", note: "Two additional closets", img: "https://photos.zillowstatic.com/fp/1ed36185a099668b074d909579ec3c5c-p_h.jpg", lat: 40.3169, lng: -74.4365 },
+  { price: "$369,900", bd: 2, ba: 2, sqft: "1,184", address: "21 John Hancock Dr #A, Monroe Township, NJ 08831", note: "Recessed lighting", img: "https://photos.zillowstatic.com/fp/107815e951de82fa33d1cf88aec5d7d5-p_h.jpg", lat: 40.3198, lng: -74.4225 },
+  { price: "$579,900", bd: 3, ba: 2, sqft: "1,512", address: "55 Wyoming Ave, Spotswood, NJ 08884", note: "Central a/c", img: "https://photos.zillowstatic.com/fp/0eb7861100c7fe6eb5f9265e5a47ecbd-p_h.jpg", lat: 40.3920, lng: -74.3915 },
 ];
 
 export const REVIEWS = [
