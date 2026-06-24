@@ -17,10 +17,10 @@ export const AGENT = {
   email: "BobbiLebbing@Comcast.Net",
   address: "174 Prospect Plains Road, Monroe Township, NJ 08831",
   socials: {
-    facebook: "#",
-    linkedin: "#",
-    instagram: "#",
-    tiktok: "#",
+    instagram: "https://www.instagram.com/bobbilebbing/",
+    linkedin: "https://www.linkedin.com/in/bobbi-lebbing/",
+    youtube: "https://www.youtube.com/channel/UCc55Uki2NiD5E8LhylxOMWg",
+    instacard: "https://instacard.co/Bobbi-Lebbing/home",
   },
   certifications: [
     { abbr: "ABR", name: "Accredited Buyer's Representative" },
