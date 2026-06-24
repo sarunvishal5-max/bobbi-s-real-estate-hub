@@ -3,7 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { SOLD, LISTINGS } from "@/components/site-data";
 
-type Pt = { lat: number; lng: number; address: string; price: string; bd: number; ba: number; sqft: string; img: string; kind: "sold" | "listing"; sub: string };
+type Pt = { lat: number; lng: number; address: string; price: string; bd: number | string; ba: number | string; sqft: string; img: string; kind: "sold" | "listing"; sub: string };
 
 const POINTS: Pt[] = [
   ...SOLD.map((s) => ({ ...s, kind: "sold" as const, sub: s.when })),
