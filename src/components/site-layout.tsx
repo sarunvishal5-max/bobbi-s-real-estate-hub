@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { type ReactNode, useState } from "react";
+import { Instagram, Linkedin, Youtube, IdCard } from "lucide-react";
 import { AGENT } from "./site-data";
 
 const NAV = [
@@ -9,6 +10,13 @@ const NAV = [
   { to: "/map", label: "Map" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
+const SOCIAL_ICONS: Record<string, { label: string; Icon: typeof Instagram }> = {
+  instagram: { label: "Instagram", Icon: Instagram },
+  linkedin: { label: "LinkedIn", Icon: Linkedin },
+  youtube: { label: "YouTube", Icon: Youtube },
+  instacard: { label: "Instacard", Icon: IdCard },
+};
 
 function Initial() {
   return (
@@ -97,17 +105,24 @@ export function SiteFooter() {
         <div className="text-sm">
           <h4 className="mb-3 font-serif text-lg text-primary">Follow</h4>
           <div className="flex flex-wrap gap-2">
-            {Object.entries(AGENT.socials).map(([k, v]) => (
-              <a
-                key={k}
-                href={v}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-border px-4 py-1.5 text-xs capitalize text-foreground/80 hover:border-primary hover:text-primary"
-              >
-                {k}
-              </a>
-            ))}
+            {Object.entries(AGENT.socials).map(([k, v]) => {
+              const meta = SOCIAL_ICONS[k];
+              if (!meta) return null;
+              const { label, Icon } = meta;
+              return (
+                <a
+                  key={k}
+                  href={v}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground/75 transition hover:border-primary hover:text-primary"
+                >
+                  <Icon size={16} strokeWidth={1.75} />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

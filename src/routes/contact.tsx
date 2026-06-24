@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { Instagram, Linkedin, Youtube, IdCard } from "lucide-react";
 import { PageShell } from "@/components/site-layout";
 import { AGENT } from "@/components/site-data";
 
@@ -43,11 +44,11 @@ function Field({ label, name, type = "text", required }: { label: string; name: 
   );
 }
 
-const SOCIAL_LABELS: Record<string, string> = {
-  instagram: "Instagram",
-  linkedin: "LinkedIn",
-  youtube: "YouTube",
-  instacard: "Instacard",
+const SOCIAL_META: Record<string, { label: string; Icon: typeof Instagram }> = {
+  instagram: { label: "Instagram", Icon: Instagram },
+  linkedin: { label: "LinkedIn", Icon: Linkedin },
+  youtube: { label: "YouTube", Icon: Youtube },
+  instacard: { label: "Instacard", Icon: IdCard },
 };
 
 function Page() {
@@ -74,15 +75,24 @@ function Page() {
             <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Follow along</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {Object.entries(AGENT.socials).map(([k, v]) => (
-                <a
-                  key={k}
-                  href={v}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground/80 hover:border-primary hover:text-primary"
-                >
-                  {SOCIAL_LABELS[k] ?? k}
-                </a>
+                (() => {
+                  const meta = SOCIAL_META[k];
+                  if (!meta) return null;
+                  const { label, Icon } = meta;
+                  return (
+                    <a
+                      key={k}
+                      href={v}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      title={label}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground/75 transition hover:border-primary hover:text-primary"
+                    >
+                      <Icon size={20} strokeWidth={1.75} />
+                    </a>
+                  );
+                })()
               ))}
             </div>
           </div>
