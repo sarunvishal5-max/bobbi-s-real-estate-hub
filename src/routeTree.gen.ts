@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoldRouteImport } from './routes/sold'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SalesRouteImport } from './routes/sales'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as ListingsRouteImport } from './routes/listings'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -25,11 +24,6 @@ const SoldRoute = SoldRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SalesRoute = SalesRouteImport.update({
-  id: '/sales',
-  path: '/sales',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MapRoute = MapRouteImport.update({
@@ -58,7 +52,6 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/listings': typeof ListingsRoute
   '/map': typeof MapRoute
-  '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sold': typeof SoldRoute
 }
@@ -67,7 +60,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/listings': typeof ListingsRoute
   '/map': typeof MapRoute
-  '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sold': typeof SoldRoute
 }
@@ -77,36 +69,20 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/listings': typeof ListingsRoute
   '/map': typeof MapRoute
-  '/sales': typeof SalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sold': typeof SoldRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/contact'
-    | '/listings'
-    | '/map'
-    | '/sales'
-    | '/sitemap.xml'
-    | '/sold'
+  fullPaths: '/' | '/contact' | '/listings' | '/map' | '/sitemap.xml' | '/sold'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/contact'
-    | '/listings'
-    | '/map'
-    | '/sales'
-    | '/sitemap.xml'
-    | '/sold'
+  to: '/' | '/contact' | '/listings' | '/map' | '/sitemap.xml' | '/sold'
   id:
     | '__root__'
     | '/'
     | '/contact'
     | '/listings'
     | '/map'
-    | '/sales'
     | '/sitemap.xml'
     | '/sold'
   fileRoutesById: FileRoutesById
@@ -116,7 +92,6 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ListingsRoute: typeof ListingsRoute
   MapRoute: typeof MapRoute
-  SalesRoute: typeof SalesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SoldRoute: typeof SoldRoute
 }
@@ -135,13 +110,6 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sales': {
-      id: '/sales'
-      path: '/sales'
-      fullPath: '/sales'
-      preLoaderRoute: typeof SalesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/map': {
@@ -180,7 +148,6 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ListingsRoute: ListingsRoute,
   MapRoute: MapRoute,
-  SalesRoute: SalesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SoldRoute: SoldRoute,
 }
