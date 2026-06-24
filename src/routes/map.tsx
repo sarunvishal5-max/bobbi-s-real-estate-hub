@@ -36,11 +36,9 @@ function Page() {
 
       <section className="mx-auto mt-10 max-w-7xl px-6">
         <ClientOnly fallback={<div className="h-[600px] w-full animate-pulse rounded-2xl border border-border bg-muted" />}>
-          {() => (
-            <Suspense fallback={<div className="h-[600px] w-full animate-pulse rounded-2xl border border-border bg-muted" />}>
-              <PropertyMap />
-            </Suspense>
-          )}
+          <Suspense fallback={<div className="h-[600px] w-full animate-pulse rounded-2xl border border-border bg-muted" />}>
+            <PropertyMap />
+          </Suspense>
         </ClientOnly>
         <p className="mt-3 text-xs text-muted-foreground">Office: {AGENT.address}</p>
       </section>
