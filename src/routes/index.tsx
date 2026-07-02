@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import bobbi from "@/assets/bobbi.png";
 import { PageShell } from "@/components/site-layout";
 import { AGENT, REVIEWS } from "@/components/site-data";
+import { Star, Phone, Mail, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,189 +21,214 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <PageShell>
-      <Hero />
-      <Stats />
-      <About />
-      <CredentialsBand />
-      <ReviewsCarousel />
+      <BentoGrid />
     </PageShell>
   );
 }
 
-function Hero() {
+function BentoGrid() {
+  const [reviewIndex, setReviewIndex] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setReviewIndex((p) => (p + 1) % REVIEWS.length), 7000);
+    return () => clearInterval(t);
+  }, []);
+
+  const currentReview = REVIEWS[reviewIndex];
+
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-secondary/60 via-background to-background" />
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-[1.1fr_0.9fr] md:py-28 md:gap-16">
-        <div className="flex flex-col justify-center">
+    <div className="mx-auto max-w-7xl px-4 py-12">
+      {/* Hero - Large left block + vertical stack right */}
+      <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2 mb-4">
+        {/* Hero text - spans 2 rows left */}
+        <div className="md:col-span-2 md:row-span-2 bg-card rounded-2xl border border-border p-8 md:p-12 flex flex-col justify-center">
           <p className="text-xs uppercase tracking-[0.3em] text-accent">
             {AGENT.brokerage}
           </p>
-          <h1 className="mt-4 font-serif text-5xl leading-[1.05] text-primary md:text-7xl">
-            Helping New Jersey<br />feel like home.
+          <h1 className="mt-4 font-serif text-4xl md:text-5xl leading-[1.05] text-primary">
+            Helping New Jersey feel like home.
           </h1>
-          <p className="mt-6 max-w-xl text-base text-foreground/75 md:text-lg">
-            I’m Bobbi Lebbing — a full-time Realtor® for nearly 30 years. From first-time buyers to
-            seasoned downsizers, I walk every client through every step with patience, knowledge,
-            and a little fun along the way.
+          <p className="mt-6 text-base text-foreground/75 md:text-lg max-w-xl">
+            Full-time Realtor® for nearly 30 years. From first-time buyers to seasoned downsizers, I walk every client through every step with patience, knowledge, and a little fun along the way.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               to="/contact"
-              className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+              className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition"
             >
               Schedule a conversation
             </Link>
             <Link
               to="/listings"
-              className="rounded-full border border-primary/40 px-6 py-3 text-sm font-medium text-primary hover:border-primary"
+              className="rounded-lg border border-primary/40 px-6 py-3 text-sm font-medium text-primary hover:border-primary transition"
             >
-              View current listings
+              View listings
             </Link>
           </div>
-          <div className="mt-10 flex items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1 text-accent">
-              {"★★★★★".split("").map((s, i) => <span key={i}>{s}</span>)}
-            </div>
-            <span>{AGENT.rating.toFixed(1)} · {AGENT.reviewCount} verified reviews on Zillow</span>
-          </div>
         </div>
-        <div className="relative">
-          <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-accent/30 blur-2xl" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-2xl">
-            <img src={bobbi} alt="Bobbi Lebbing portrait" className="h-full w-full object-cover" />
+
+        {/* Portrait - top right */}
+        <div className="bg-card rounded-2xl border border-border overflow-hidden aspect-square md:aspect-auto">
+          <img 
+            src={bobbi} 
+            alt="Bobbi Lebbing portrait" 
+            className="h-full w-full object-cover"
+          />
+        </div>
+
+        {/* Rating block - bottom right */}
+        <div className="bg-card rounded-2xl border border-border p-6 flex flex-col justify-between">
+          <div className="flex items-center gap-1 text-accent mb-3">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={16} fill="currentColor" />
+            ))}
           </div>
-          <div className="absolute -bottom-6 -left-6 hidden rounded-2xl border border-border bg-card p-5 shadow-xl md:block">
-            <p className="font-serif text-3xl text-primary">{AGENT.stats.totalSales}</p>
-            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Career closings</p>
-          </div>
-          <div className="absolute -right-4 top-8 hidden rounded-2xl border border-border bg-card p-4 shadow-xl md:block">
-            <p className="text-xs uppercase tracking-[0.18em] text-accent">2025</p>
-            <p className="font-serif text-lg text-primary">Circle of Excellence — Gold</p>
+          <div>
+            <p className="font-serif text-2xl text-primary">{AGENT.rating.toFixed(1)}</p>
+            <p className="text-xs text-muted-foreground">{AGENT.reviewCount} verified reviews</p>
           </div>
         </div>
       </div>
-    </section>
-  );
-}
 
-function Stats() {
-  const items = [
-    ["20", "Sales · last 12 months"],
-    [String(AGENT.stats.totalSales), "Total career sales"],
-    [AGENT.stats.priceRange, "Price range served"],
-    [AGENT.stats.averagePrice, "Average sale price"],
-  ];
-  return (
-    <section className="border-y border-border bg-primary text-primary-foreground">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-6 py-12 md:grid-cols-4">
-        {items.map(([v, l]) => (
-          <div key={l}>
-            <p className="font-serif text-3xl md:text-4xl">{v}</p>
-            <p className="mt-2 text-xs uppercase tracking-[0.18em] opacity-75">{l}</p>
+      {/* Stats Grid - 4 equal blocks */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        <div className="bg-primary text-primary-foreground rounded-2xl p-6 border border-primary/80">
+          <p className="font-serif text-3xl">20</p>
+          <p className="text-xs uppercase tracking-[0.18em] mt-2 opacity-75">Last 12 months</p>
+        </div>
+        <div className="bg-primary text-primary-foreground rounded-2xl p-6 border border-primary/80">
+          <p className="font-serif text-3xl">{AGENT.stats.totalSales}</p>
+          <p className="text-xs uppercase tracking-[0.18em] mt-2 opacity-75">Career sales</p>
+        </div>
+        <div className="bg-primary text-primary-foreground rounded-2xl p-6 border border-primary/80">
+          <p className="font-serif text-3xl">{AGENT.stats.priceRange}</p>
+          <p className="text-xs uppercase tracking-[0.18em] mt-2 opacity-75">Price range</p>
+        </div>
+        <div className="bg-primary text-primary-foreground rounded-2xl p-6 border border-primary/80">
+          <p className="font-serif text-3xl">{AGENT.stats.averagePrice}</p>
+          <p className="text-xs uppercase tracking-[0.18em] mt-2 opacity-75">Avg sale price</p>
+        </div>
+      </div>
+
+      {/* About section - 2 columns */}
+      <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div className="bg-card rounded-2xl border border-border p-8">
+          <p className="text-xs uppercase tracking-[0.3em] text-accent">Residential Focus</p>
+          <h3 className="mt-3 font-serif text-xl text-primary">Couples & Downsizers</h3>
+          <p className="mt-4 text-sm text-foreground/80 leading-relaxed">
+            I've been helping couples who've lived in their homes for years find their next chapter. From preparing your home for market to navigating township requirements, I handle every detail.
+          </p>
+        </div>
+        <div className="bg-card rounded-2xl border border-border p-8">
+          <p className="text-xs uppercase tracking-[0.3em] text-accent">First-Time Buyers</p>
+          <h3 className="mt-3 font-serif text-xl text-primary">Guidance From Start to Finish</h3>
+          <p className="mt-4 text-sm text-foreground/80 leading-relaxed">
+            Buying your first home is exciting and overwhelming. I'm with you every step, from pre-approval through closing, making sure you understand each phase.
+          </p>
+        </div>
+      </div>
+
+      {/* Certifications - 4 equal blocks */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        {AGENT.certifications.map((c) => (
+          <div key={c.abbr} className="bg-secondary/40 rounded-2xl border border-border p-6">
+            <p className="font-serif text-2xl text-primary">{c.abbr}</p>
+            <p className="mt-2 text-xs text-muted-foreground">{c.name}</p>
           </div>
         ))}
       </div>
-    </section>
-  );
-}
 
-function About() {
-  return (
-    <section className="mx-auto max-w-5xl px-6 py-24">
-      <p className="text-xs uppercase tracking-[0.3em] text-accent">About Bobbi</p>
-      <h2 className="mt-3 font-serif text-4xl text-primary md:text-5xl">
-        “I love my job — plain and simple.”
-      </h2>
-      <div className="mt-8 grid gap-8 text-foreground/80 md:grid-cols-2">
-        <p>
-          I’ve been a full-time Realtor® for over 29 years. My favorite is residential — especially the
-          couples who have lived in their home for years and are finally ready to downsize. I’m there at
-          every turn, walking them through getting their home “show ready,” handling township
-          requirements, and finding the next chapter that fits.
+      {/* Service Areas - full width */}
+      <div className="bg-secondary/40 rounded-2xl border border-border p-8 mb-4">
+        <p className="text-xs uppercase tracking-[0.3em] text-accent">Service Areas</p>
+        <h2 className="mt-2 font-serif text-2xl md:text-3xl text-primary">
+          Middlesex · Monmouth · Ocean · Mercer Counties
+        </h2>
+        <p className="mt-3 text-sm text-muted-foreground max-w-2xl">
+          Bobbi lists and sells across 20+ New Jersey communities — from active-adult villages to first-time-buyer townhomes.
         </p>
-        <p>
-          I love first-time buyers — fun and rewarding work where I hold hands from start to finish. I
-          also work with distressed clients, with compassion and understanding. I list and sell across
-          Middlesex, Monmouth, Ocean and Mercer counties.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-function CredentialsBand() {
-  return (
-    <section className="border-t border-border bg-secondary/40">
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-accent">REALTOR® Credentials</p>
-            <h2 className="mt-2 font-serif text-3xl text-primary md:text-4xl">
-              Designations earned, expertise applied.
-            </h2>
-          </div>
-          <p className="max-w-md text-sm text-muted-foreground">
-            Designations from the National Association of REALTORS® that signal Bobbi’s
-            specialized training in buyer representation, senior moves, and seller advocacy.
-          </p>
-        </div>
-        <div className="mt-10 grid gap-4 md:grid-cols-4">
-          {AGENT.certifications.map((c) => (
-            <div key={c.abbr} className="rounded-xl border border-border bg-card p-5">
-              <p className="font-serif text-2xl text-primary">{c.abbr}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{c.name}</p>
-            </div>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {["Woodbridge", "Princeton", "Red Bank", "Lakewood", "New Brunswick", "Long Branch"].map((area) => (
+            <span key={area} className="rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground/80">
+              {area}
+            </span>
           ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-function ReviewsCarousel() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setI((p) => (p + 1) % REVIEWS.length), 7000);
-    return () => clearInterval(t);
-  }, []);
-  const r = REVIEWS[i];
-  return (
-    <section id="reviews" className="mx-auto max-w-6xl px-6 py-24">
-      <div className="flex items-end justify-between gap-6">
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-accent">Client Reviews</p>
-          <h2 className="mt-2 font-serif text-4xl text-primary md:text-5xl">
-            5.0 ★ from {AGENT.reviewCount} clients
-          </h2>
+      {/* Reviews - 2 columns, left is featured review, right is contact + quick info */}
+      <div className="grid md:grid-cols-3 gap-4 mb-4">
+        {/* Featured review - spans 2 cols */}
+        <div className="md:col-span-2 bg-card rounded-2xl border border-border p-8">
+          <div className="flex items-center gap-1 text-accent mb-4">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={16} fill="currentColor" />
+            ))}
+          </div>
+          <h3 className="font-serif text-2xl text-primary">{currentReview.title}</h3>
+          <p className="mt-4 text-foreground/80 leading-relaxed">
+            "{currentReview.body}"
+          </p>
+          <p className="mt-6 text-sm text-muted-foreground">
+            — <span className="font-medium text-foreground">{currentReview.author}</span> · {currentReview.date}
+          </p>
+          <div className="mt-6 flex gap-2">
+            {REVIEWS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setReviewIndex(i)}
+                className={`rounded-full transition-all ${i === reviewIndex ? "w-6 h-2 bg-primary" : "w-2 h-2 bg-border"}`}
+                aria-label={`Review ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
-        <div className="hidden gap-2 md:flex">
-          <button onClick={() => setI((p) => (p - 1 + REVIEWS.length) % REVIEWS.length)}
-            className="h-10 w-10 rounded-full border border-border text-primary hover:bg-primary hover:text-primary-foreground">←</button>
-          <button onClick={() => setI((p) => (p + 1) % REVIEWS.length)}
-            className="h-10 w-10 rounded-full border border-border text-primary hover:bg-primary hover:text-primary-foreground">→</button>
+
+        {/* Contact info block - right */}
+        <div className="bg-card rounded-2xl border border-border p-8 flex flex-col justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">Get in Touch</p>
+            <div className="space-y-4">
+              <a href={`tel:${AGENT.mobile}`} className="flex items-start gap-3 hover:text-primary transition">
+                <Phone size={18} className="text-accent flex-shrink-0 mt-0.5" />
+                <div className="text-sm">
+                  <p className="text-xs text-muted-foreground">Mobile</p>
+                  <p className="text-foreground">{AGENT.mobile}</p>
+                </div>
+              </a>
+              <a href={`mailto:${AGENT.email}`} className="flex items-start gap-3 hover:text-primary transition">
+                <Mail size={18} className="text-accent flex-shrink-0 mt-0.5" />
+                <div className="text-sm">
+                  <p className="text-xs text-muted-foreground">Email</p>
+                  <p className="text-foreground">{AGENT.email}</p>
+                </div>
+              </a>
+              <div className="flex items-start gap-3">
+                <MapPin size={18} className="text-accent flex-shrink-0 mt-0.5" />
+                <div className="text-sm">
+                  <p className="text-xs text-muted-foreground">Office</p>
+                  <p className="text-foreground text-xs">{AGENT.address}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Link
+            to="/contact"
+            className="mt-6 w-full rounded-lg bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90 transition"
+          >
+            Work with Bobbi
+          </Link>
         </div>
       </div>
-      <div className="mt-10 rounded-3xl border border-border bg-card p-8 md:p-12 shadow-sm">
-        <div className="flex items-center gap-1 text-accent">
-          {"★★★★★".split("").map((s, k) => <span key={k}>{s}</span>)}
-        </div>
-        <h3 className="mt-4 font-serif text-2xl text-primary md:text-3xl">{r.title}</h3>
-        <p className="mt-4 text-foreground/80 md:text-lg leading-relaxed">“{r.body}”</p>
-        <p className="mt-6 text-sm text-muted-foreground">
-          — <span className="font-medium text-foreground">{r.author}</span> · {r.date}
+
+      {/* Credentials/Awards - full width */}
+      <div className="bg-accent/10 rounded-2xl border border-border p-8">
+        <p className="text-xs uppercase tracking-[0.3em] text-accent">Recognition</p>
+        <h2 className="mt-2 font-serif text-2xl text-primary mb-4">{AGENT.award}</h2>
+        <p className="text-sm text-foreground/80">
+          Recognized by the National Association of REALTORS® for outstanding service, sales achievement, and client advocacy.
         </p>
       </div>
-      <div className="mt-6 flex justify-center gap-2">
-        {REVIEWS.map((_, k) => (
-          <button
-            key={k}
-            aria-label={`Review ${k + 1}`}
-            onClick={() => setI(k)}
-            className={`h-1.5 rounded-full transition-all ${k === i ? "w-8 bg-primary" : "w-2 bg-border"}`}
-          />
-        ))}
-      </div>
-    </section>
+    </div>
   );
 }
