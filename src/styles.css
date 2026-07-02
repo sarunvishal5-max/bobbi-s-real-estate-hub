@@ -4,18 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+/**
+ * Editorial Minimalist Luxury Design System
+ * 
+ * Warm Contemporary + Editorial Minimalist aesthetic
+ * with luxury real estate typography and spacing
  */
 
 @theme inline {
@@ -62,34 +55,52 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  /* Warm ivory backdrop, deep forest primary, brass gold accent */
-  --background: oklch(0.978 0.012 85);
-  --foreground: oklch(0.22 0.02 150);
-  --card: oklch(0.995 0.006 85);
-  --card-foreground: oklch(0.22 0.02 150);
-  --popover: oklch(0.995 0.006 85);
-  --popover-foreground: oklch(0.22 0.02 150);
-  --primary: oklch(0.32 0.05 160);
-  --primary-foreground: oklch(0.978 0.012 85);
-  --secondary: oklch(0.94 0.02 85);
-  --secondary-foreground: oklch(0.32 0.05 160);
-  --muted: oklch(0.93 0.015 85);
-  --muted-foreground: oklch(0.45 0.025 150);
-  --accent: oklch(0.72 0.13 75);
-  --accent-foreground: oklch(0.22 0.02 150);
+  --radius: 0px;
+  
+  /* Editorial Minimalist Luxury Palette */
+  --background: oklch(0.988 0.004 89.5);        /* Soft off-white #FDFBF7 */
+  --foreground: oklch(0.106 0.01 50);            /* Deep charcoal #1A1A1A */
+  --card: oklch(0.963 0.008 84.3);               /* Warm cream #F9F6F0 */
+  --card-foreground: oklch(0.106 0.01 50);       /* Deep charcoal */
+  --popover: oklch(0.963 0.008 84.3);
+  --popover-foreground: oklch(0.106 0.01 50);
+  
+  /* Primary: Deep charcoal for headers, buttons */
+  --primary: oklch(0.106 0.01 50);               /* Deep charcoal #1A1A1A */
+  --primary-foreground: oklch(0.988 0.004 89.5); /* Off-white */
+  
+  /* Secondary: Warm cream background */
+  --secondary: oklch(0.963 0.008 84.3);          /* Warm cream #F9F6F0 */
+  --secondary-foreground: oklch(0.106 0.01 50);
+  
+  /* Muted: Light grays */
+  --muted: oklch(0.92 0.008 85);                 /* Light gray #E8E3DB */
+  --muted-foreground: oklch(0.42 0.01 50);       /* Medium gray */
+  
+  /* Accent: Muted bronze/terracotta */
+  --accent: oklch(0.555 0.08 65);                /* Muted bronze #8B7355 */
+  --accent-foreground: oklch(0.106 0.01 50);
+  
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.88 0.02 85);
-  --input: oklch(0.88 0.02 85);
-  --ring: oklch(0.32 0.05 160);
+  
+  /* Border: Subtle warm gray */
+  --border: oklch(0.857 0.006 89);               /* Border gray #D9D4CC */
+  --input: oklch(0.963 0.008 84.3);
+  --ring: oklch(0.555 0.08 65);                  /* Accent ring */
+  
+  /* Chart colors */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  
+  /* Typography */
+  --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
+  
+  /* Sidebar */
   --sidebar: oklch(0.984 0.003 247.858);
   --sidebar-foreground: oklch(0.129 0.042 264.695);
   --sidebar-primary: oklch(0.208 0.042 265.755);
@@ -145,10 +156,260 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
   }
 
-  h1, h2, h3, h4, .font-serif {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
     letter-spacing: -0.01em;
+    font-weight: 300;
+  }
+
+  h1 {
+    font-size: 3rem;
+    line-height: 1.05;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  p {
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  a {
+    transition: all 0.3s ease-out;
+  }
+}
+
+@layer components {
+  /* === BUTTON UTILITIES === */
+  
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4;
+    @apply bg-primary text-primary-foreground font-medium;
+    @apply border border-primary;
+    @apply hover:shadow-lg hover:translate-y-[-2px];
+    @apply transition-all duration-300 ease-out;
+    @apply cursor-pointer;
+  }
+
+  .btn-primary:disabled {
+    @apply opacity-60 cursor-not-allowed hover:shadow-none hover:translate-y-0;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4;
+    @apply bg-transparent text-primary border border-primary;
+    @apply font-medium;
+    @apply hover:bg-primary hover:text-primary-foreground;
+    @apply transition-all duration-300 ease-out;
+    @apply cursor-pointer;
+  }
+
+  .btn-outline:disabled {
+    @apply opacity-60 cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2;
+    @apply text-foreground font-medium;
+    @apply hover:text-primary transition-colors duration-300;
+    @apply cursor-pointer;
+  }
+
+  .btn-link {
+    @apply inline-flex items-center gap-2;
+    @apply text-primary font-medium underline;
+    @apply hover:text-accent transition-colors duration-300;
+    @apply cursor-pointer;
+  }
+
+  /* === CARD & CONTAINER UTILITIES === */
+  
+  .card-editorial {
+    @apply bg-card border border-border;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .card-editorial:hover {
+    @apply shadow-lg border-accent/20;
+  }
+
+  .divider-soft {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  /* === TYPOGRAPHY UTILITIES === */
+  
+  .quote-editorial {
+    @apply font-serif text-3xl md:text-4xl leading-[1.3];
+    @apply text-primary font-light italic;
+  }
+
+  .quote-editorial::before {
+    content: '"';
+  }
+
+  .quote-editorial::after {
+    content: '"';
+  }
+
+  .nav-link {
+    @apply relative font-light text-primary;
+    @apply transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 w-0 h-px;
+    @apply bg-primary transition-all duration-300 ease-out;
+    @apply -translate-x-1/2;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  /* === IMAGE & MEDIA === */
+  
+  .image-container {
+    @apply relative overflow-hidden;
+    background: linear-gradient(
+      135deg,
+      rgba(26, 26, 26, 0) 0%,
+      rgba(26, 26, 26, 0.02) 100%
+    );
+  }
+
+  .image-container img {
+    @apply transition-transform duration-700 ease-out;
+  }
+
+  .image-container:hover img {
+    @apply scale-105;
+  }
+
+  /* === ANIMATIONS === */
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  /* === LAYOUT UTILITIES === */
+  
+  .content-max {
+    @apply mx-auto max-w-7xl;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+
+  .section-padding-lg {
+    @apply py-32 md:py-40;
+  }
+
+  /* === FORM ELEMENTS === */
+  
+  input,
+  textarea,
+  select {
+    @apply bg-input text-foreground border border-border rounded-none;
+    @apply px-4 py-3 font-light;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-muted-foreground;
+  }
+
+  button {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* === VIGNETTE & EFFECTS === */
+  
+  .vignette {
+    box-shadow: inset 0 0 40px rgba(26, 26, 26, 0.08);
+  }
+
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/10;
+  }
+}
+
+/* === RESPONSIVE TYPOGRAPHY === */
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.875rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* === ACCESSIBILITY === */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === PRINT STYLES === */
+
+@media print {
+  body {
+    background-color: white;
+    color: black;
+  }
+
+  a {
+    text-decoration: underline;
   }
 }
