@@ -1,300 +1,199 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import bobbi from "@/assets/bobbi.png";
-import { PageShell } from "@/components/site-layout";
-import { AGENT, REVIEWS } from "@/components/site-data";
-import { ChevronRight } from "lucide-react";
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowRight, Search, MapPin, Compass, Award, Quote } from 'lucide-react';
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Bobbi Lebbing, Realtor® — New Jersey Realty, LLC" },
-      { name: "description", content: "30 years of NJ real estate experience, 455 closed sales, 5.0★ from 190 reviews. Serving Middlesex, Monmouth, Ocean & Mercer counties." },
-      { property: "og:title", content: "Bobbi Lebbing, Realtor® — New Jersey Realty, LLC" },
-      { property: "og:description", content: "30 years of NJ real estate experience, 455 closed sales, 5.0★ from 190 reviews." },
-    ],
-  }),
-  component: Index,
+export const Route = createFileRoute('/')({
+  component: LandingPage,
 });
 
-function Index() {
-  return (
-    <PageShell>
-      <Hero />
-      <Stats />
-      <About />
-      <Designations />
-      <EditorialReview />
-      <CTA />
-    </PageShell>
-  );
-}
-
-function Hero() {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  return (
-    <section className="relative">
-      <div className="mx-auto max-w-7xl px-8 py-24 md:py-32">
-        <div className="grid gap-12 md:grid-cols-2 items-center">
-          {/* Left: Asymmetric Typography */}
-          <div className="flex flex-col justify-center">
-            <p className="text-xs uppercase tracking-[0.35em] text-accent font-semibold">
-              {AGENT.brokerage}
-            </p>
-            <h1 className="mt-6 font-serif text-5xl md:text-6xl text-primary leading-[1.05]">
-              Helping<br />
-              <span className="italic font-light">New Jersey</span><br />
-              feel like home.
-            </h1>
-            <p className="mt-8 max-w-lg text-base font-light text-foreground/75 leading-relaxed md:text-lg">
-              I'm Bobbi Lebbing — a full-time Realtor® for nearly 30 years. From first-time buyers to seasoned downsizers, I walk every client through every step with patience, knowledge, and a little fun along the way.
-            </p>
-
-            {/* Integrated search bar equivalent — subtle divider-based layout */}
-            <div className="mt-12 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-              <Link
-                to="/contact"
-                className="btn-primary"
-              >
-                Schedule a consultation
-                <ChevronRight size={16} className="ml-2" />
-              </Link>
-              <Link
-                to="/listings"
-                className="btn-outline"
-              >
-                Explore listings
-              </Link>
-            </div>
-
-            {/* Rating micro-display */}
-            <div className="mt-12 pt-8 border-t border-border">
-              <p className="text-xs uppercase tracking-[0.25em] text-accent font-semibold">5.0 Rating</p>
-              <p className="mt-1 text-sm font-light text-muted-foreground">
-                {AGENT.reviewCount} verified reviews on Zillow
-              </p>
-            </div>
-          </div>
-
-          {/* Right: Tall, High-Aspect Ratio Image */}
-          <div className="relative">
-            <div 
-              className={`image-container aspect-[3/4] md:aspect-[2/3] overflow-hidden transition-all duration-700 ${
-                imageLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <img
-                src={bobbi}
-                alt="Bobbi Lebbing portrait"
-                className="h-full w-full object-cover"
-                onLoad={() => setImageLoaded(true)}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Soft divider at bottom */}
-      <div className="divider-soft" />
-    </section>
-  );
-}
-
-function Stats() {
-  const stats = [
-    { value: "20", label: "Sales Last 12 Months", delay: 100 },
-    { value: AGENT.stats.totalSales, label: "Total Career Sales", delay: 200 },
-    { value: AGENT.stats.priceRange, label: "Price Range Served", delay: 300 },
-    { value: AGENT.stats.averagePrice, label: "Average Sale Price", delay: 400 },
+function LandingPage() {
+  // Bespoke high-end property collection data matching our framing layout system
+  const featuredProperties = [
+    {
+      id: 1,
+      title: "The Glass Pavilion",
+      location: "Montecito, CA",
+      price: "$14,850,000",
+      specs: "4 BD  |  5.5 BA  |  8,200 SQFT",
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+      id: 2,
+      title: "Linen Wood Residence",
+      location: "Aspen, CO",
+      price: "$9,200,000",
+      specs: "3 BD  |  3.5 BA  |  4,100 SQFT",
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+      id: 3,
+      title: "The Obsidian Terraces",
+      location: "Austin, TX",
+      price: "$6,400,000",
+      specs: "5 BD  |  6 BA  |  6,750 SQFT",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+    }
   ];
 
   return (
-    <section className="bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-7xl px-8 py-24">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="fade-in-up"
-              style={{ animationDelay: `${stat.delay}ms` }}
-            >
-              <p className="font-serif text-4xl md:text-5xl font-light">{stat.value}</p>
-              <p className="mt-3 text-xs uppercase tracking-[0.25em] font-light opacity-80">
-                {stat.label}
-              </p>
+    <div className="bg-background text-primary min-h-screen transition-colors duration-500">
+      
+      {/* 1. ASYMMETRIC EDITORIAL HERO SECTION */}
+      <section className="relative min-h-[90vh] flex flex-col justify-between pt-32 pb-16 px-6 md:px-12 lg:px-24 content-max">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full mt-auto mb-auto">
+          
+          {/* Left Text Column: Overlapping Elegant Typography */}
+          <div className="lg:col-span-7 flex flex-col z-10 pr-0 lg:pr-8">
+            <span className="text-accent uppercase tracking-editorial text-xs mb-6 font-medium animate-fade-in">
+              Bespoke Real Estate Architectural Portfolio
+            </span>
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light text-primary tracking-tight leading-[1.05] mb-8">
+              Spaces curated for the <br />
+              <span className="font-serif italic text-accent font-normal">intentional</span> life.
+            </h1>
+            
+            {/* Low-Profile Integrated Horizontal Filter Bar */}
+            <div className="w-full max-w-2xl mt-4 border-b border-border pb-4 flex items-center gap-4 group">
+              <Search className="w-4 h-4 text-accent transition-transform duration-300 group-focus-within:scale-110" />
+              <input 
+                type="text" 
+                placeholder="Search architectural styles, coastal estates, historical contexts..." 
+                className="w-full bg-transparent border-none p-0 text-primary font-sans font-light placeholder:text-muted/60 focus:ring-0 focus:outline-none text-base"
+              />
+              <button className="text-xs uppercase tracking-widest text-accent hover:text-primary flex items-center gap-2 font-medium transition-colors duration-300">
+                Explore <ArrowRight className="w-3 h-3" />
+              </button>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+          </div>
 
-function About() {
-  return (
-    <section className="mx-auto max-w-7xl px-8 py-32">
-      <div className="mb-16">
-        <p className="text-xs uppercase tracking-[0.35em] text-accent font-semibold">Approach</p>
-        <h2 className="mt-4 font-serif text-4xl md:text-5xl text-primary">
-          "I love my job—<span className="italic font-light">plain and simple.</span>"
-        </h2>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-16">
-        <div className="border-l border-accent/40 pl-8">
-          <h3 className="font-serif text-2xl text-primary mb-4">Residential Focus</h3>
-          <p className="text-base font-light text-foreground/75 leading-relaxed mb-4">
-            I've been a full-time Realtor® for over 29 years. My favorite is residential — especially the couples who have lived in their home for years and are finally ready to downsize.
-          </p>
-          <p className="text-base font-light text-foreground/75 leading-relaxed">
-            I'm there at every turn, walking them through getting their home "show ready," handling township requirements, and finding the next chapter that fits.
-          </p>
-        </div>
-
-        <div className="border-l border-accent/40 pl-8">
-          <h3 className="font-serif text-2xl text-primary mb-4">First-Time Buyers & More</h3>
-          <p className="text-base font-light text-foreground/75 leading-relaxed mb-4">
-            I love first-time buyers — fun and rewarding work where I hold hands from start to finish. I also work with distressed clients, with compassion and understanding.
-          </p>
-          <p className="text-base font-light text-foreground/75 leading-relaxed">
-            I list and sell across Middlesex, Monmouth, Ocean and Mercer counties.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Designations() {
-  return (
-    <section className="bg-secondary/40 border-t border-b border-border">
-      <div className="mx-auto max-w-7xl px-8 py-32">
-        <div className="mb-16">
-          <p className="text-xs uppercase tracking-[0.35em] text-accent font-semibold">REALTOR® Credentials</p>
-          <h2 className="mt-4 font-serif text-4xl md:text-5xl text-primary">
-            Designations earned,<br />
-            <span className="italic font-light">expertise applied.</span>
-          </h2>
-          <p className="mt-6 max-w-xl text-base font-light text-muted-foreground leading-relaxed">
-            Designations from the National Association of REALTORS® that signal Bobbi's specialized training in buyer representation, senior moves, and seller advocacy.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {AGENT.certifications.map((cert, i) => (
-            <div
-              key={cert.abbr}
-              className="card-editorial p-8 fade-in-up"
-              style={{ animationDelay: `${i * 100}ms` }}
-            >
-              <p className="font-serif text-3xl text-primary">{cert.abbr}</p>
-              <p className="mt-3 text-xs uppercase tracking-widest text-muted-foreground font-semibold">
-                {cert.name}
-              </p>
+          {/* Right Column: Tall High-Aspect-Ratio Image Container */}
+          <div className="lg:col-span-5 w-full flex justify-end">
+            <div className="image-container aspect-[3/4] w-full max-w-[420px] shadow-editorial-lg bg-secondary">
+              <img 
+                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=80" 
+                alt="Luxury Estate Living Room Architecture" 
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent pointer-events-none" />
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+          </div>
 
-function EditorialReview() {
-  const [reviewIndex, setReviewIndex] = useState(0);
-  const currentReview = REVIEWS[reviewIndex];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setReviewIndex((prev) => (prev + 1) % REVIEWS.length);
-    }, 7000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <section className="mx-auto max-w-5xl px-8 py-32">
-      <div className="mb-12">
-        <p className="text-xs uppercase tracking-[0.35em] text-accent font-semibold">Client Voice</p>
-        <h2 className="mt-4 font-serif text-4xl md:text-5xl text-primary">
-          Featured Review
-        </h2>
-      </div>
-
-      <div className="card-editorial p-12 md:p-16">
-        {/* Stars */}
-        <div className="flex gap-1 text-accent mb-8">
-          {[...Array(5)].map((_, i) => (
-            <span key={i} className="text-xl">★</span>
-          ))}
         </div>
 
-        {/* Quote */}
-        <blockquote className="quote-editorial mb-8">
-          "{currentReview.body}"
-        </blockquote>
-
-        {/* Attribution */}
-        <div className="border-t border-border pt-8">
-          <p className="text-sm font-light text-muted-foreground">
-            — <span className="text-foreground font-semibold">{currentReview.author}</span> · {currentReview.date}
-          </p>
+        {/* Minimal Hero Bottom Banner */}
+        <div className="flex flex-wrap justify-between items-center border-t border-border/60 pt-8 mt-12 gap-6 text-xs uppercase tracking-widest text-muted">
+          <div>Based in southern California</div>
+          <div className="flex gap-8">
+            <span>Scroll to view</span>
+            <span>↓</span>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Carousel controls */}
-      <div className="mt-12 flex justify-center items-center gap-3">
-        <button
-          onClick={() => setReviewIndex((prev) => (prev - 1 + REVIEWS.length) % REVIEWS.length)}
-          className="nav-link text-sm"
-          aria-label="Previous review"
-        >
-          ← Previous
-        </button>
-        <div className="flex gap-2">
-          {REVIEWS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setReviewIndex(i)}
-              className={`transition-all duration-300 ${
-                i === reviewIndex
-                  ? "w-6 h-px bg-primary"
-                  : "w-2 h-px bg-border hover:bg-primary/50"
+      {/* 2. CURATED COLLECTIONS / FEATURED STORY SPREAD */}
+      <section className="bg-secondary/40 border-y border-border/40 py-24 md:py-32 px-6 md:px-12 lg:px-24">
+        <div className="content-max grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="lg:col-span-5 order-2 lg:order-1">
+            <div className="image-container aspect-square w-full max-w-[460px]">
+              <img 
+                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80" 
+                alt="Contemporary architecture details" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col justify-center">
+            <Quote className="w-8 h-8 text-accent mb-6 opacity-60" />
+            <blockquote className="quote-editorial mb-8 text-2xl md:text-3xl lg:text-4xl text-primary font-light">
+              Architecture should speak of its time and place, but yearn for timelessness. We don't list structures; we pass on generational landmarks.
+            </blockquote>
+            <p className="font-sans font-light text-muted max-w-lg mb-6 leading-relaxed">
+              Our signature philosophy bridges traditional physical publishing layout structures with digital precision. Every house in Bobbi's network receives high-end architectural indexing and target exposure.
+            </p>
+            <div>
+              <Link to="/" className="btn-outline inline-block text-xs uppercase tracking-widest">
+                Read the Manifesto
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. PROPERTY CARDS & BESPOKE FRAMING GRID */}
+      <section className="py-24 md:py-32 px-6 md:px-12 lg:px-24 content-max">
+        <div className="flex flex-col md:flex-row justify-between items-baseline mb-16 border-b border-border/60 pb-6">
+          <div>
+            <span className="text-accent uppercase tracking-editorial text-xs block mb-2">Exclusives</span>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light text-primary">Current Editorial Listings</h2>
+          </div>
+          <Link to="/" className="text-xs uppercase tracking-widest text-accent hover:text-primary flex items-center gap-2 mt-4 md:mt-0 font-medium group transition-colors duration-300">
+            View Complete Index <ArrowRight className="w-3 h-3 transform group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+        {/* Staggered, Masonry-Inspired Curated Card Layout Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
+          {featuredProperties.map((property, idx) => (
+            <div 
+              key={property.id} 
+              className={`card-editorial group flex flex-col p-4 bg-secondary/20 shadow-editorial-sm ${
+                idx === 1 ? 'lg:translate-y-8' : idx === 2 ? 'lg:translate-y-4' : ''
               }`}
-              aria-label={`Review ${i + 1}`}
-            />
+            >
+              {/* Image Frame Wrapper */}
+              <div className="image-container aspect-[4/5] w-full mb-6">
+                <img 
+                  src={property.image} 
+                  alt={property.title} 
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute bottom-4 left-4 bg-background/90 backdrop-blur-sm px-3 py-1 text-[10px] uppercase tracking-widest text-primary">
+                  {property.location}
+                </div>
+              </div>
+
+              {/* Typographic Metadata Frame */}
+              <div className="px-2 pb-2">
+                <div className="flex justify-between items-baseline mb-3">
+                  <h3 className="font-serif text-xl font-light text-primary group-hover:text-accent transition-colors duration-300">
+                    {property.title}
+                  </h3>
+                  <span className="font-sans font-light text-base text-primary/90">{property.price}</span>
+                </div>
+                
+                {/* Thin, Clean Typographic All-Caps Mini Text Dividers */}
+                <div className="text-[10px] uppercase tracking-widest text-muted/80 border-t border-border/60 pt-3 flex justify-between items-center">
+                  <span>{property.specs}</span>
+                  <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">Details →</span>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
-        <button
-          onClick={() => setReviewIndex((prev) => (prev + 1) % REVIEWS.length)}
-          className="nav-link text-sm"
-          aria-label="Next review"
-        >
-          Next →
-        </button>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function CTA() {
-  return (
-    <section className="border-t border-border bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-7xl px-8 py-24 md:py-32 text-center">
-        <h2 className="font-serif text-4xl md:text-5xl mb-8">
-          Ready to find your next home?
-        </h2>
-        <p className="text-base font-light opacity-90 mb-12 max-w-2xl mx-auto">
-          Whether you're buying, selling, or exploring options, I'm here to guide you every step of the way with integrity and expertise.
-        </p>
-        <Link
-          to="/contact"
-          className="inline-flex items-center justify-center px-8 py-4 bg-primary-foreground text-primary font-medium hover:shadow-lg transition-all duration-300 ease-out hover:translate-y-[-2px]"
-        >
-          Schedule Your Consultation
-          <ChevronRight size={18} className="ml-2" />
-        </Link>
-      </div>
-    </section>
+      {/* 4. CALL TO ACTION spread */}
+      <section className="py-24 md:py-32 bg-primary text-primary-foreground text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#8B7355_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+        <div className="content-max px-6 max-w-3xl relative z-10">
+          <span className="text-accent uppercase tracking-editorial text-xs block mb-6">Inquiries</span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light mb-8 leading-tight text-white">
+            Ready to transition into <br />
+            your next architectural legacy?
+          </h2>
+          <p className="font-sans font-light text-primary-foreground/70 max-w-xl mx-auto mb-10 text-base leading-relaxed">
+            Connect with our private office directly for tailored representation consults, architectural listings, or off-market asset procurement.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button className="btn-primary w-full sm:w-auto bg-accent text-white border-accent hover:bg-white hover:text-primary">
+              Schedule Representation Consultation
+            </button>
+            <button className="btn-outline w-full sm:w-auto border-white/40 text-white hover:bg-white hover:text-primary">
+              Access Private Office Catalog
+            </button>
+          </div>
+        </div>
+      </section>
+      
+    </div>
   );
 }
