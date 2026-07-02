@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// Force rebuild trigger - Editorial Minimalist Luxury v3
 export default {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
