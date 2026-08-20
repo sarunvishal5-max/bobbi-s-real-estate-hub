@@ -1,38 +1,22 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArrowRight, Search, MapPin, Compass, Award, Quote } from 'lucide-react';
+import { LISTINGS } from '@/components/site-data';
 
 export const Route = createFileRoute('/')({
   component: LandingPage,
 });
 
 function LandingPage() {
-  // Bespoke high-end property collection data matching our framing layout system
-  const featuredProperties = [
-    {
-      id: 1,
-      title: "The Glass Pavilion",
-      location: "Montecito, CA",
-      price: "$14,850,000",
-      specs: "4 BD  |  5.5 BA  |  8,200 SQFT",
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      id: 2,
-      title: "Linen Wood Residence",
-      location: "Aspen, CO",
-      price: "$9,200,000",
-      specs: "3 BD  |  3.5 BA  |  4,100 SQFT",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      id: 3,
-      title: "The Obsidian Terraces",
-      location: "Austin, TX",
-      price: "$6,400,000",
-      specs: "5 BD  |  6 BA  |  6,750 SQFT",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-    }
-  ];
+  // Real, current listings represented by Bobbi — sourced from LISTINGS (site-data.ts),
+  // which mirrors newjerseyrealtyllc.com/agent/bobbi-lebbing/. No placeholder/stock listings.
+  const featuredProperties = LISTINGS.slice(0, 3).map((p, idx) => ({
+    id: idx + 1,
+    title: p.address.split(",")[0],
+    location: p.address.split(",").slice(1).join(",").trim(),
+    price: p.price,
+    specs: `${p.bd} BD  |  ${p.ba} BA  |  ${p.sqft} SQFT`,
+    image: p.img,
+  }));
 
   return (
     <div className="bg-background text-primary min-h-screen transition-colors duration-500">
@@ -81,7 +65,7 @@ function LandingPage() {
 
         {/* Minimal Hero Bottom Banner */}
         <div className="flex flex-wrap justify-between items-center border-t border-border/60 pt-8 mt-12 gap-6 text-xs uppercase tracking-widest text-muted">
-          <div>Based in southern California</div>
+          <div>Based in central New Jersey</div>
           <div className="flex gap-8">
             <span>Scroll to view</span>
             <span>↓</span>
